@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #91e0f4;
+}
+
+.box-area {
+    max-width: 1000px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+
+.right-box {
+    padding: 40px; 
+}
+
+::placeholder {
+    font-size: 16px;
+}
+
+.rounded-4 {
+    border-radius: 20px;
+}
+
+.rounded-5 {
+    border-radius: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+    .box-area {
+        margin: 0 auto;
+        max-width: calc(100% - 20px); 
+    }
+
+    .left-box {
+        height: auto; 
+        overflow: hidden;
+    }
+
+    .right-box {
+        padding: 20px;
+    }
+}
+
+/* Adjustments for Money Minder component */
+.left-box {
+    height: 300px; /* Adjust the height as needed */
+}

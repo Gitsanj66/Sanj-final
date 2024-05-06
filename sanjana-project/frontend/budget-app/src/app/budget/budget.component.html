@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 66vh;">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">Budget List</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="d-flex justify-content-end mb-3">
+                <p-button label="Add Budget" [raised]="true" [rounded]="true" severity="primary" (click)="openAddBudgetDialog()"></p-button>
+            </div>
+            <p-table [value]="budgets" styleClass="p-datatable-gridlines"  dataKey="index" editMode="row" [style]="{'font-size':'15px'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="rowData">
+                        <td>{{rowData.title}}</td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="rowData.amount" year>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.amount}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td style="text-align:center">
+                            <button pButton *ngIf="!editing" pInitEditableRow type="button" icon="pi pi-trash" class="p-button-danger"
+                                (click)="onRowDelete(rowData,ri)"></button>
+                            <button *ngIf="!editing" pInitEditableRow pButton type="button" icon="pi pi-pencil" class="pi-button-info"
+                                (click)="onRowEditInit(rowData,ri)"></button>
+                            <button *ngIf="editing" pSaveEditableRow pButton type="button" icon="pi pi-check"
+                                class="p-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData,ri)"></button>
+                            <button *ngIf="editing" pCancelEditableRow pButton type="button" icon="pi pi-times"
+                                class="p-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="container d-flex justify-content-center align-items-center" *ngIf="showAddBudgetRow">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+<div class="row mt-3" >
+    <div class="col-12">
+      <div class="d-flex align-items-center">
+        <div class="p-field flex-grow-1 mr-2" style="width:100%">
+          <label for="category">Category:</label>
+          <p-selectButton [options]="titles" [(ngModel)]="newBudget.title"></p-selectButton>
+        </div>
+        <div class="p-field flex-grow-1 mr-2">
+          <label for="amount">Amount:</label>
+          <input id="amount" pInputText placeholder="Amount" [(ngModel)]="newBudget.amount" />
+        </div>
+        <div style="width:24%"> 
+          <button class="p-button p-button-success" pButton type="button" (click)="addBudget(newBudget)">Add Budget</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="p-button p-button-secondary" pButton type="button" (click)="cancelNewBudget()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>

@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 66vh;">
+  <div class="row border rounded-5 p-3 bg-white shadow box-area">
+    <div class="container-fluid mt-4">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center">Expense List</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-4">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="d-flex justify-content-end mb-3">
+            <p-button label="Add" [raised]="true" [rounded]="true" severity="primary" (click)="openAddExpenseRow()"></p-button>
+          </div>
+
+          <p-table [value]="expenses" dataKey="index" styleClass="p-datatable-gridlines" editMode="row">
+            <ng-template pTemplate="header">
+              <tr style="height: 46px; font-size: 18px;">
+                <th>Expense Title</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th style="width: 8em"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+              <tr style="height: 30px; font-size: 15px;" [pEditableRow]="rowData">
+                <td>{{ rowData.category }}</td>
+                <td>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.amount" />
+                    </ng-template>
+                    <ng-template pTemplate="output"> {{ rowData.amount }} </ng-template>
+                  </p-cellEditor>
+                </td>
+                <td>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.date" />
+                    </ng-template>
+                    <ng-template pTemplate="output"> {{ rowData.date }} </ng-template>
+                  </p-cellEditor>
+                </td>
+                <td>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.comment" />
+                    </ng-template>
+                    <ng-template pTemplate="output"> {{ rowData.comment }} </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td style="text-align: center">
+                  <button pButton *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-trash" style="margin-right: 4px" class="p-button-danger" (click)="onRowDelete(rowData, ri)"></button>
+                  <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="pi-button-info" (click)="onRowEditInit(rowData, ri)"></button>
+                  <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="p-button-success" style="margin-right: 0.5em" (click)="onRowEditSave(rowData, ri)"></button>
+                  <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="p-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container d-flex justify-content-center align-items-center"  *ngIf="showAddExpenseRow">
+  <div class="row border rounded-5 p-3 bg-white shadow box-area">
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="d-flex align-items-center">
+      <div class="p-field flex-grow-1 mr-2" style="width:100%">
+        <label for="category" style="font-size: 13px;">Category:</label>
+        <p-selectButton [options]="categories" [(ngModel)]="newExpense.category"></p-selectButton>
+      </div>
+      <div class="p-field flex-grow-1 mr-2">
+        <label for="amount" style="font-size: 13px;">Amount:</label>
+        <input id="amount" pInputText placeholder="Amount" [(ngModel)]="newExpense.amount" />
+      </div>
+      <div class="p-field flex-grow-1 mr-2">
+        <label for="comment" style="font-size: 13px;">Comment:</label>
+        <input id="comment" pInputText placeholder="Comment" [(ngModel)]="newExpense.comment" />
+      </div>
+      <div style="width:60%">
+        <button class="p-button p-button-success" pButton type="button" (click)="addExpense(newExpense)">Add Expense</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="p-button p-button-secondary" pButton type="button" (click)="cancelNewExpense()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
