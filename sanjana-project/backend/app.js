@@ -34,13 +34,42 @@ app.use(function(req, res, next) {
       message: err.message
     })
   });
-mongoose.connect("mongodb://localhost:27017/budget",{
-    useNewUrlParser:true,
-})
-.then(()=>{
-    console.log("connected to database")
+// mongoose.connect("mongodb://localhost:27017/budget",{
+//     useNewUrlParser:true,
+// })
+// .then(()=>{
+//     console.log("connected to database")
 
-    app.listen(port,()=>{
-        console.log(`API listening to http://localhost:${port}`)
-    })
+//     app.listen(port,()=>{
+//         console.log(`API listening to http://localhost:${port}`)
+//     })
+// })
+//const mongoose = require('mongoose');
+
+// Connection URI
+var uri = 'mongodb+srv://cluster0.qetsbpr.mongodb.net/';
+// Database Name
+var dbName = 'Budgetdb'; // Replace 'your_database_name' with your actual database name
+// Username and password
+var username = 'Nbad_user';
+var password = 'c5rrOvVz17rXEIPn'; // Replace 'your_password' with your actual password
+
+// Connect to MongoDB using Mongoose
+mongoose.connect(uri, {
+  dbName: dbName,
+  user: username,
+  pass: password,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
+.then(() => {
+  console.log('Connected successfully to MongoDB');
+  app.listen(port,()=>{
+            console.log(`API listening to http://localhost:${port}`)
+        })
+})
+.catch((err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
+// Once connected, you can define your Mongoose schema and models here

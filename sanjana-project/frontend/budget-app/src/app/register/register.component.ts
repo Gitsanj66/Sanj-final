@@ -52,8 +52,8 @@ export class RegisterComponent implements OnInit {
           (user: any) => {
             alert('Success User registered successfully');
             localStorage.setItem('user', user.user);
-            this.authService.isLoggedin=true;
-            this.router.navigate(['/']);
+            // this.authService.isLoggedin=true;
+            this.router.navigate(['/login']);
           },
           (error) => {
             console.log(error);
