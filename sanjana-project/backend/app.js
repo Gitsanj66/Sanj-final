@@ -12,7 +12,7 @@ const port=3000
 const app=express()
 
 app.use(cors({
-    origin:['http://localhost:4200', "http://64.225.11.27:4200"],
+    origin:['http://localhost:4200', "http://64.225.11.27:4200", "http://64.225.11.27"],
     credentials:true
 }))
 
